@@ -8,4 +8,4 @@ Opprettet Git-repo. Prøver å sette opp Webhooks til Discord, så alle blir inf
 Tester om Webhook fungerer :)
 
  
-Fungerer ikkeeeee:(
+Fungerer ikkeeeee:  ahhhh
