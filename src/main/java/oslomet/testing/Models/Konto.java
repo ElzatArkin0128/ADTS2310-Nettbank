@@ -70,8 +70,4 @@ public class Konto
     public void setTransaksjoner(List<Transaksjon> transaksjoner) {
         this.transaksjoner = transaksjoner;
     }
-
-    public String Hei(){
-        return "hei";
-    }
 }
