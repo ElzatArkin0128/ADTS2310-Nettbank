@@ -5,7 +5,8 @@ Opprettet Git-repo. Prøver å sette opp Webhooks til Discord, så alle blir inf
 
 ## Dag 2:
 
-Tester om Webhook fungerer :)
+Middag hos Marlon
 
- 
-Fungerer ikkeeeee:  ahhhh
+## Dag 3:
+
+Kaffe hos Jenny :)
