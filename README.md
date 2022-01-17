@@ -9,4 +9,4 @@ Middag hos Marlon
 
 ## Dag 3:
 
-Kaffe hos Jenny :)
+Hei hei!
