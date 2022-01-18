@@ -5,6 +5,8 @@ Opprettet Git-repo. Prøver å sette opp Webhooks til Discord, så alle blir inf
 
 ## Økt 2:
 
+test git terminal
+
 ## Økt 3:
 
 ## Økt 4: 
