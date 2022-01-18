@@ -1,12 +1,14 @@
 # ADTS2310-Nettbank
 
-## Dag 1:
+## Økt 1:
 Opprettet Git-repo. Prøver å sette opp Webhooks til Discord, så alle blir informert ved hver commit/push.
 
-## Dag 2:
+## Økt 2:
 
-Middag hos Marlon
+## Økt 3:
 
-## Dag 3:
+## Økt 4: 
 
-Hei hei!
+## Økt 5:
+
+
