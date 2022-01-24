@@ -9,6 +9,8 @@ test git terminal
 
 ## Økt 3:
 
+Enhetstesting: 
+
 Fordeling av arbeidsoppgaver, hovedansvar:
 EnhetstestBankController - Becca
 Sikkerhet - Elzat
