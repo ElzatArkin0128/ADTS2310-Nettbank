@@ -95,25 +95,6 @@ public class EnhetstestSikkerhet {
 
     @Test
     public void test_loggetInnFeil(){
-        Map<String,Object> attributes = new HashMap<String,Object>();
-
-        doAnswer(new Answer<Object>(){
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                String key = (String) invocation.getArguments()[0];
-                return attributes.get(key);
-            }
-        }).when(session).getAttribute(anyString());
-
-        doAnswer(new Answer<Object>(){
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                String key = (String) invocation.getArguments()[0];
-                Object value = invocation.getArguments()[1];
-                attributes.put(key, value);
-                return null;
-            }
-        }).when(session).setAttribute(anyString(), any());
 
         session.setAttribute("Innlogget", null);
 
