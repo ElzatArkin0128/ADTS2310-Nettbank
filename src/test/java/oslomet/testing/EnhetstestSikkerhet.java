@@ -38,6 +38,7 @@ public class EnhetstestSikkerhet {
     @Mock
     private MockHttpSession session;
 
+    // tester for sjekkLoggInn : 2 tester (OK & feil)
     @Test
     public void test_sjekkLoggInn(){
 
@@ -61,6 +62,8 @@ public class EnhetstestSikkerhet {
         assertEquals("Feil i personnummer eller passord", resultat);
     }
 
+
+    // Tester for loggetInn : 2 tester (OK & feil)
     @Test
     public void test_loggetInn(){
         Map<String,Object> attributes = new HashMap<String,Object>();
@@ -120,6 +123,8 @@ public class EnhetstestSikkerhet {
 
     }
 
+
+    // Test for loggUt : 1 test
     @Test
     public void test_loggUt(){
         session.setAttribute("Innlogget", null);
@@ -129,5 +134,23 @@ public class EnhetstestSikkerhet {
         assertNull(resultat);
     }
 
+    // Tester for loggInnAdmin : 2 tester (OK & feil)
+    @Test
+    public void test_loggInnAdmin(){
+        session.setAttribute("Innlogget", "Admin");
 
+        String resultat = sikkerhetsController.loggInnAdmin("Admin", "Admin");
+
+        assertEquals("Logget inn", resultat);
+
+    }
+
+    @Test
+    public void test_loggInnAdminFeil(){
+        session.setAttribute("Innlogget", null);
+
+        String resultat = sikkerhetsController.loggInnAdmin(anyString(), anyString());
+
+        assertEquals("Ikke logget inn", resultat);
+    }
 }
