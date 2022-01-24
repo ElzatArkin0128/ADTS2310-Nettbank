@@ -27,19 +27,17 @@ public class EnhetstestKundeController {
     private AdminKundeController adminKundeController;
 
     @Mock
-    // denne skal Mock'es
     private AdminRepository repository;
-
-    @Mock
-    private Sikkerhet sjekk;
 
 
     @Test
     public void test_hentAlleOK() {
 
+        // test logg inn og test logg inn feil
+
         // arrange
-        Kunde kunde1 = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "22224444", "HeiHei");
-        Kunde kunde2 = new Kunde("12345678901", "Per", "Hansen", "Osloveien 82", "1234", "12345678", "HeiHei");
+        Kunde kunde1 = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "Oslo","22224444", "HeiHei");
+        Kunde kunde2 = new Kunde("12345678901", "Per", "Hansen", "Osloveien 82", "1234","Oslo", "12345678", "HeiHei");
         List<Kunde> kundeliste = new ArrayList<>();
         kundeliste.add(kunde1);
         kundeliste.add(kunde2);
