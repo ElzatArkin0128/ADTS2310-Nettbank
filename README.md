@@ -11,7 +11,8 @@ test git terminal
 
 Enhetstesting: 
 
-Fordeling av arbeidsoppgaver, hovedansvar:
+## Fordeling av arbeidsoppgaver, hovedansvar:
+
 EnhetstestBankController - Becca
 Sikkerhet - Elzat
 Kunde - Jenny
