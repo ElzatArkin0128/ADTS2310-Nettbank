@@ -9,6 +9,12 @@ test git terminal
 
 ## Økt 3:
 
+Fordeling av arbeidsoppgaver, hovedansvar:
+EnhetstestBankController - Becca
+Sikkerhet - Elzat
+Kunde - Jenny
+Admin - Marlon
+
 ## Økt 4: 
 
 ## Økt 5:
