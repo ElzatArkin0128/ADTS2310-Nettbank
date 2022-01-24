@@ -36,13 +36,16 @@ public class EnhetstestKundeController {
 
     @Test
     public void test_hentAlleOK() {
-
         // arrange
-        Kunde kunde1 = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "22224444", "HeiHei");
-        Kunde kunde2 = new Kunde("12345678901", "Per", "Hansen", "Osloveien 82", "1234", "12345678", "HeiHei");
+        Kunde kunde1 = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+        Kunde kunde2 = new Kunde("12345678901", "Per", "Hansen", "Osloveien 82", "1234", "Oslo", "12345678", "HeiHei");
         List<Kunde> kundeliste = new ArrayList<>();
         kundeliste.add(kunde1);
         kundeliste.add(kunde2);
+
+
+        // Du manglet denne linjen her;
+        Mockito.when(sjekk.loggetInn()).thenReturn(kunde1.getPersonnummer(), kunde2.getPersonnummer());
 
         Mockito.when(repository.hentAlleKunder()).thenReturn(kundeliste);
 
@@ -55,7 +58,7 @@ public class EnhetstestKundeController {
     }
 
     @Test
-    public void  test_hentAlleFeil() {
+    public void test_hentAlleFeil() {
 
         // arrange
         when(repository.hentAlleKunder()).thenReturn(null);
