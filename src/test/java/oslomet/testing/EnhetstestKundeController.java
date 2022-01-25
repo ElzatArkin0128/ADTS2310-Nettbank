@@ -17,7 +17,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -63,10 +62,7 @@ public class EnhetstestKundeController {
     @Test
     public void test_hentAlleFeil() {
 
-        // skal det testes for innlogging i test_hentAlleFeil() også???
-
-        // arrange
-        when(repository.hentAlleKunder()).thenReturn(null);
+        when(sjekk.loggetInn()).thenReturn(null);
 
         // act
         List<Kunde> resultat = adminKundeController.hentAlle();
@@ -104,7 +100,8 @@ public class EnhetstestKundeController {
         Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
                 "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
 
-        when(repository.registrerKunde(any(Kunde.class))).thenReturn("Feil");
+        // sjekker om innlogget
+        when(sjekk.loggetInn()).thenReturn(null);
 
         // act
         String resultat = adminKundeController.lagreKunde(enKunde);
@@ -141,7 +138,8 @@ public class EnhetstestKundeController {
         Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
                 "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
 
-        when(repository.endreKundeInfo(any(Kunde.class))).thenReturn("Feil");
+        // sjekker om innlogget
+        when(sjekk.loggetInn()).thenReturn(null);
 
         // act
         String resultat = adminKundeController.endre(enKunde);
@@ -177,7 +175,8 @@ public class EnhetstestKundeController {
         Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
                 "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
 
-        when(repository.slettKunde(enKunde.getPersonnummer())).thenReturn("Feil");
+        // sjekker om innlogget
+        when(sjekk.loggetInn()).thenReturn(null);
 
         // act
         String resultat = adminKundeController.slett(enKunde.getPersonnummer());
