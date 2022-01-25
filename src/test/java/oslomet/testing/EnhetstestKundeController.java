@@ -16,7 +16,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,20 +37,20 @@ public class EnhetstestKundeController {
     public void test_hentAlleOK() {
 
         // arrange
-        Kunde kunde1 = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
-        Kunde kunde2 = new Kunde("12345678901", "Per", "Hansen", "Osloveien 82", "1234", "Oslo", "12345678", "HeiHei");
+        Kunde kunde1 = new Kunde("01010110523", "Lene", "Jensen",
+                "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+        Kunde kunde2 = new Kunde("12345678901", "Per", "Hansen",
+                "Osloveien 82", "1234", "Oslo", "12345678", "HeiHei");
 
-
-        // test logg inn og test logg inn feil
         List<Kunde> kundeliste = new ArrayList<>();
         kundeliste.add(kunde1);
         kundeliste.add(kunde2);
 
+        // skjekker om innlogget
+        when(sjekk.loggetInn()).thenReturn(kunde1.getPersonnummer(), kunde2.getPersonnummer());
 
-        // Du manglet denne linjen her;
-        Mockito.when(sjekk.loggetInn()).thenReturn(kunde1.getPersonnummer(), kunde2.getPersonnummer());
-
-        Mockito.when(repository.hentAlleKunder()).thenReturn(kundeliste);
+        // henter kunder fra repository
+        when(repository.hentAlleKunder()).thenReturn(kundeliste);
 
         // act
         List<Kunde> resultat = adminKundeController.hentAlle();
@@ -61,6 +62,8 @@ public class EnhetstestKundeController {
 
     @Test
     public void test_hentAlleFeil() {
+
+        // skal det testes for innlogging i test_hentAlleFeil() også???
 
         // arrange
         when(repository.hentAlleKunder()).thenReturn(null);
@@ -76,31 +79,111 @@ public class EnhetstestKundeController {
     @Test
     public void  test_lagreKundeOK() {
 
+        // arrange
+        Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
+                "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+
+        // sjekker om innlogget
+        when(sjekk.loggetInn()).thenReturn(enKunde.getPersonnummer());
+
+        // henter kunder fra repository
+        when(repository.registrerKunde(any(Kunde.class))).thenReturn("OK");
+
+        // act
+        String resultat = adminKundeController.lagreKunde(enKunde);
+
+        // assert
+        assertEquals("OK", resultat);
+
     }
 
     @Test
     public void test_lagreKundeFeil() {
+
+        // arrange
+        Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
+                "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+
+        when(repository.registrerKunde(any(Kunde.class))).thenReturn("Feil");
+
+        // act
+        String resultat = adminKundeController.lagreKunde(enKunde);
+
+        // assert
+        assertEquals("Ikke logget inn", resultat);
 
     }
 
     @Test
     public void test_endreKundeOK() {
 
+        // arrange
+        Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
+                "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+
+        // sjekker om innlogget
+        Mockito.when(sjekk.loggetInn()).thenReturn(enKunde.getPersonnummer());
+
+        // henter kunder fra repository
+        Mockito.when(repository.endreKundeInfo(any(Kunde.class))).thenReturn("OK");
+
+        // act
+        String resultat = adminKundeController.endre(enKunde);
+
+        // assert
+        assertEquals("OK", resultat);
     }
 
     @Test
     public void test_endreKundeFeil() {
 
+        // arrange
+        Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
+                "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+
+        when(repository.endreKundeInfo(any(Kunde.class))).thenReturn("Feil");
+
+        // act
+        String resultat = adminKundeController.endre(enKunde);
+
+        // assert
+        assertEquals("Ikke logget inn", resultat);
     }
 
     @Test
     public void test_slettKundeOK() {
 
+        // arrange
+        Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
+                "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+
+        // sjekker om innlogget
+        when(sjekk.loggetInn()).thenReturn(enKunde.getPersonnummer());
+
+        // henter kunder fra repository
+        when(repository.slettKunde(enKunde.getPersonnummer())).thenReturn("OK");
+
+        // act
+        String resultat = adminKundeController.slett(enKunde.getPersonnummer());
+
+        // assert
+        assertEquals("OK", resultat);
     }
 
     @Test
     public void test_slettKundeFeil() {
 
+        // arrange
+        Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
+                "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+
+        when(repository.slettKunde(enKunde.getPersonnummer())).thenReturn("Feil");
+
+        // act
+        String resultat = adminKundeController.slett(enKunde.getPersonnummer());
+
+        // assert
+        assertEquals("Ikke logget inn", resultat);
     }
 
 }
