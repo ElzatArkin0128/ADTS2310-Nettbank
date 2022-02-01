@@ -5,10 +5,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import oslomet.testing.API.AdminKontoController;
 import oslomet.testing.API.BankController;
+import oslomet.testing.DAL.AdminRepository;
 import oslomet.testing.DAL.BankRepository;
 import oslomet.testing.Models.Konto;
 import oslomet.testing.Models.Kunde;
+import oslomet.testing.Models.Transaksjon;
 import oslomet.testing.Sikkerhet.Sikkerhet;
 
 import java.util.ArrayList;
@@ -23,26 +26,36 @@ import static org.mockito.Mockito.when;
 public class EnhetstestAdminKontoController {
 
     @InjectMocks
-    // denne skal testes
-    private BankController bankController;
+    private AdminKontoController kontoController;
 
     @Mock
-    // denne skal Mock'es
-    private BankRepository repository;
+    private AdminRepository repository;
 
     @Mock
-    // denne skal Mock'es
     private Sikkerhet sjekk;
 
     @Test
     public void test_hentAlleKontiOK() {
-        // arrange
+        // Arrange
+        List<Transaksjon> konto1transaksjoner = new ArrayList<>();
+        List<Transaksjon> konto2transaksjoner = new ArrayList<>();
+        Konto konto1 = new Konto("05068924604", "41925811793",
+                13495.41, "Brukskonto", "NOK", konto1transaksjoner);
+        Konto konto2 = new Konto("23129735499", "92081352378",
+                116_296.96, "Sparekonto", "NOK", konto2transaksjoner);
 
+        List<Konto> kontoliste = new ArrayList<>();
+        kontoliste.add(konto1);
+        kontoliste.add(konto2);
 
-        // act
+        when(sjekk.loggetInn()).thenReturn(konto1.getPersonnummer(), konto2.getPersonnummer());
+        when(repository.hentAlleKonti()).thenReturn(kontoliste);
 
+        // Act
+        List<Konto> resultat = kontoController.hentAlleKonti();
 
-        // assert
+        // Assert
+        assertEquals(kontoliste, resultat);
     }
 
     @Test
