@@ -86,13 +86,18 @@ public class EnhetstestKontoController {
 
     @Test
     public void test_registrerKontoFeil() {
-        // Arrange
+        //
+        List<Transaksjon> konto1transaksjoner = new ArrayList<>();
+        Konto konto1 = new Konto("05068924604", "41925811793",
+                13495.41, "Brukskonto", "NOK", konto1transaksjoner);
 
+        when(sjekk.loggetInn()).thenReturn(null);
 
         // Act
-
+        String resultat = kontoController.registrerKonto(konto1);
 
         // Assert
+        assertEquals("Ikke innlogget", resultat);
     }
 
     @Test
