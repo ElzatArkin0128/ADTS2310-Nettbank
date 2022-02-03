@@ -6,11 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import oslomet.testing.API.AdminKontoController;
-import oslomet.testing.API.BankController;
 import oslomet.testing.DAL.AdminRepository;
-import oslomet.testing.DAL.BankRepository;
 import oslomet.testing.Models.Konto;
-import oslomet.testing.Models.Kunde;
 import oslomet.testing.Models.Transaksjon;
 import oslomet.testing.Sikkerhet.Sikkerhet;
 
@@ -19,11 +16,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EnhetstestAdminKontoController {
+public class EnhetstestKontoController {
 
     @InjectMocks
     private AdminKontoController kontoController;
@@ -60,80 +57,86 @@ public class EnhetstestAdminKontoController {
 
     @Test
     public void test_hentAlleKontiFeil() {
-        // arrange
+        // Arrange
         when(sjekk.loggetInn()).thenReturn(null);
 
-        // act
+        // Act
         List<Konto> resultat = kontoController.hentAlleKonti();
 
-        // assert
+        // Assert
         assertNull(resultat);
     }
 
     @Test
     public void test_registrerKontoOK() {
-        // arrange
+        // Arrange
+        List<Transaksjon> konto1transaksjoner = new ArrayList<>();
+        Konto konto1 = new Konto("05068924604", "41925811793",
+                13495.41, "Brukskonto", "NOK", konto1transaksjoner);
 
+        when(sjekk.loggetInn()).thenReturn(konto1.getPersonnummer());
+        when(repository.registrerKonto(any(Konto.class))).thenReturn("OK");
 
-        // act
+        // Act
+        String resultat = repository.registrerKonto(konto1);
 
-
-        // assert
+        // Assert
+        assertEquals("OK", resultat);
     }
 
     @Test
     public void test_registrerKontoFeil() {
-        // arrange
+        // Arrange
 
 
-        // act
+        // Act
 
 
-        // assert
+        // Assert
     }
 
     @Test
     public void test_endreKontoOK() {
-        // arrange
+        // Arrange
 
 
-        // act
+        // Act
 
 
-        // assert
+        // Assert
     }
 
     @Test
     public void test_endreKontoFeil() {
-        // arrange
+        // Arrange
 
 
-        // act
+        // Act
 
 
-        // assert
+        // Assert
     }
 
     @Test
     public void test_slettKontoOK() {
-        // arrange
+        // Arrange
 
 
-        // act
+        // Act
 
 
-        // assert
+        // Assert
     }
 
     @Test
     public void test_slettKontoFeil() {
-        // arrange
+        // Arrange
 
 
-        // act
+        // Act
 
 
-        // assert
+        // Assert
     }
 }
 
