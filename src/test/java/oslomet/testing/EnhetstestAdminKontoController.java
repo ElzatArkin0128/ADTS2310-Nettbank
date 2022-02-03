@@ -61,12 +61,13 @@ public class EnhetstestAdminKontoController {
     @Test
     public void test_hentAlleKontiFeil() {
         // arrange
-
+        when(sjekk.loggetInn()).thenReturn(null);
 
         // act
-
+        List<Konto> resultat = kontoController.hentAlleKonti();
 
         // assert
+        assertNull(resultat);
     }
 
     @Test
