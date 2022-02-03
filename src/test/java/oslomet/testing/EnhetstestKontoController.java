@@ -78,7 +78,7 @@ public class EnhetstestKontoController {
         when(repository.registrerKonto(any(Konto.class))).thenReturn("OK");
 
         // Act
-        String resultat = repository.registrerKonto(konto1);
+        String resultat = kontoController.registrerKonto(konto1);
 
         // Assert
         assertEquals("OK", resultat);
@@ -86,7 +86,7 @@ public class EnhetstestKontoController {
 
     @Test
     public void test_registrerKontoFeil() {
-        //
+        // Arrange
         List<Transaksjon> konto1transaksjoner = new ArrayList<>();
         Konto konto1 = new Konto("05068924604", "41925811793",
                 13495.41, "Brukskonto", "NOK", konto1transaksjoner);
@@ -103,12 +103,18 @@ public class EnhetstestKontoController {
     @Test
     public void test_endreKontoOK() {
         // Arrange
+        List<Transaksjon> konto1transaksjoner = new ArrayList<>();
+        Konto konto1 = new Konto("05068924604", "41925811793",
+                13495.41, "Brukskonto", "NOK", konto1transaksjoner);
 
+        when(sjekk.loggetInn()).thenReturn(konto1.getPersonnummer());
+        when(repository.endreKonto(any(Konto.class))).thenReturn("OK");
 
         // Act
-
+        String resultat = kontoController.endreKonto(konto1);
 
         // Assert
+        assertEquals("OK", resultat);
     }
 
     @Test
