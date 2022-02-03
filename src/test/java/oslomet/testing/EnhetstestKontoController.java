@@ -136,12 +136,18 @@ public class EnhetstestKontoController {
     @Test
     public void test_slettKontoOK() {
         // Arrange
+        List<Transaksjon> konto1transaksjoner = new ArrayList<>();
+        Konto konto1 = new Konto("05068924604", "41925811793",
+                13495.41, "Brukskonto", "NOK", konto1transaksjoner);
 
+        when(sjekk.loggetInn()).thenReturn(konto1.getPersonnummer());
+        when(repository.slettKonto(konto1.getKontonummer())).thenReturn("OK");
 
         // Act
-
+        String resultat = kontoController.slettKonto(konto1.getKontonummer());
 
         // Assert
+        assertEquals("OK", resultat);
     }
 
     @Test
