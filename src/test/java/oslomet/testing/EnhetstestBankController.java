@@ -100,5 +100,52 @@ public class EnhetstestBankController {
         // assert
         assertNull(resultat);
     }
+
+    @Test
+    public void hentSaldi_loggetInn() {
+
+        // arrange
+        List<Konto> saldi = new ArrayList<>();
+        Konto konto3 = new Konto("115111133557", "02020211533",
+                800, "Lønnskonto", "NOK", null);
+        saldi.add(konto3);
+
+        when(sjekk.loggetInn()).thenReturn("115111133557");
+
+        when(repository.hentSaldi(anyString())).thenReturn(saldi);
+
+        // act
+        List<Konto> resultat = bankController.hentSaldi();
+
+        // assert
+        assertEquals(saldi, resultat);
+
+    }
+
+    @Test
+    public void hentSaldi_IkkeLoggetInn()  {
+        // arrange
+
+        when(sjekk.loggetInn()).thenReturn(null);
+
+        // act
+        List<Konto> resultat = bankController.hentSaldi();
+
+        // assert
+        assertNull(resultat);
+    }
+
+    @Test
+    //Transaksjoner skal ha inn parameterene kontonr, fra og til dato, vet ikke hvordan dette skal testes
+    public void hentTransaksjoner_OK()  {
+
+    }
+
+
+
+
 }
+
+
+
 
