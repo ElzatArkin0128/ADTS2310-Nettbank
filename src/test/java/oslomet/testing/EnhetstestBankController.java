@@ -5,7 +5,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import oslomet.testing.API.AdminKontoController;
 import oslomet.testing.API.BankController;
+import oslomet.testing.DAL.AdminRepository;
 import oslomet.testing.DAL.BankRepository;
 import oslomet.testing.Models.Konto;
 import oslomet.testing.Models.Kunde;
@@ -26,10 +28,12 @@ public class EnhetstestBankController {
     @InjectMocks
     // denne skal testes
     private BankController bankController;
+    private AdminKontoController kontoController;
 
     @Mock
     // denne skal Mock'es
     private BankRepository repository;
+    private AdminRepository repo2;
 
     @Mock
     // denne skal Mock'es
@@ -141,21 +145,44 @@ public class EnhetstestBankController {
     //Transaksjoner skal ha inn parameterene kontonr, fra og til dato, vet ikke hvordan dette skal testes
     public void hentTransaksjoner_OK() {
 
-        // arrange
+      /*  // arrange
         when(sjekk.loggetInn()).thenReturn("115111133557");
 
         List<Transaksjon> transaksjoner = new ArrayList<>();
-        Transaksjon transaksjon = new Transaksjon(2, "123456789101", 23.5,
+        Transaksjon transaksjonen = new Transaksjon(2, "123456789101", 23.5,
                 "2012-03-11", "send", "1", "23456789101");
-        transaksjoner.add(transaksjon);
+        transaksjoner.add(transaksjonen);
 
-        when(repository.hentTransaksjoner()).thenReturn("23456789101", "2012-03-11", "2013-03-11");
+
+
+        // when(repository.hentKonti(transaksjonen.getKontonummer())).thenReturn()
+
+        when(repository.hentTransaksjoner("23456789101", "2012-03-11", "2013-03-11")).thenReturn();
 
         // act
 
 
-        // assert
+        // assert*/
 
+
+        List<Transaksjon> transaksjoner = new ArrayList<>();
+        Transaksjon transaksjon1 = new Transaksjon(2, "123456789101", 23.5,
+                "2012-03-11", "send", "1", "23456789101");
+
+        transaksjoner.add(transaksjon1);
+
+        Konto konto = new Konto("05068924604", "23456789101",
+                13495.41, "Brukskonto", "NOK", transaksjoner);
+
+        when(sjekk.loggetInn()).thenReturn(konto.getPersonnummer());
+
+        when(repository.hentTransaksjoner(konto.getPersonnummer(), transaksjon1.getDato(), transaksjon1.getDato())).thenReturn(konto);
+
+        // List<Konto>
+        List<Transaksjon> resultat = (List<Transaksjon>) bankController.hentTransaksjoner("23456789101", "2012-03-11", "2012-04-11");
+
+
+        assertEquals(transaksjoner, resultat);
     }
 
     @Test
