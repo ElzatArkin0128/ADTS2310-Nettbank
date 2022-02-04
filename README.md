@@ -14,9 +14,9 @@ Enhetstesting:
 ## Fordeling av arbeidsoppgaver, hovedansvar:
 
 EnhetstestBankController - Becca
-Sikkerhet - Elzat - Ferdig
-Kunde - Jenny
-Admin - Marlon
+EnhetstestSikkerhet - Elzat - Ferdig
+EnhetstestKundeController - Jenny
+EnhetstestKontoController - Marlon
 
 ## Økt 4: 
 
