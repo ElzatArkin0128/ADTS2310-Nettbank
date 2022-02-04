@@ -31,7 +31,6 @@ public class EnhetstestKontoController {
     @Mock
     private Sikkerhet sjekk;
 
-    // Todo: Hei tester en liten ting!
 
     @Test
     public void test_hentAlleKontiOK() {
