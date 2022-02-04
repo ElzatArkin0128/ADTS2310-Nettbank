@@ -9,6 +9,7 @@ import oslomet.testing.API.BankController;
 import oslomet.testing.DAL.BankRepository;
 import oslomet.testing.Models.Konto;
 import oslomet.testing.Models.Kunde;
+import oslomet.testing.Models.Transaksjon;
 import oslomet.testing.Sikkerhet.Sikkerhet;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class EnhetstestBankController {
     }
 
     @Test
-    public void hentKonti_LoggetInn()  {
+    public void hentKonti_LoggetInn() {
         // arrange
         List<Konto> konti = new ArrayList<>();
         Konto konto1 = new Konto("105010123456", "01010110523",
@@ -89,7 +90,7 @@ public class EnhetstestBankController {
     }
 
     @Test
-    public void hentKonti_IkkeLoggetInn()  {
+    public void hentKonti_IkkeLoggetInn() {
         // arrange
 
         when(sjekk.loggetInn()).thenReturn(null);
@@ -123,7 +124,7 @@ public class EnhetstestBankController {
     }
 
     @Test
-    public void hentSaldi_IkkeLoggetInn()  {
+    public void hentSaldi_IkkeLoggetInn() {
         // arrange
 
         when(sjekk.loggetInn()).thenReturn(null);
@@ -135,14 +136,40 @@ public class EnhetstestBankController {
         assertNull(resultat);
     }
 
+
     @Test
     //Transaksjoner skal ha inn parameterene kontonr, fra og til dato, vet ikke hvordan dette skal testes
-    public void hentTransaksjoner_OK()  {
+    public void hentTransaksjoner_OK() {
+
+        // arrange
+        when(sjekk.loggetInn()).thenReturn("115111133557");
+
+        List<Transaksjon> transaksjoner = new ArrayList<>();
+        Transaksjon transaksjon = new Transaksjon(2, "123456789101", 23.5,
+                "2012-03-11", "send", "1", "23456789101");
+        transaksjoner.add(transaksjon);
+
+        when(repository.hentTransaksjoner()).thenReturn("23456789101", "2012-03-11", "2013-03-11");
+
+        // act
+
+
+        // assert
 
     }
 
+    @Test
 
+    public void hentBetalinger_OK() {
 
+        // arrange
+        List<Transaksjon> Transaksjoner = new ArrayList<>();
+        Transaksjon Transaksjon1 = new Transaksjon(2, "123456789101", 23.5,
+                "2012-03-11", "send", "1", "23456789101");
+        Transaksjoner.add(Transaksjon1);
+
+        when(sjekk.loggetInn()).thenReturn("115111133557");
+    }
 
 }
 
