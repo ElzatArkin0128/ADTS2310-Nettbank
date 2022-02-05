@@ -145,44 +145,29 @@ public class EnhetstestBankController {
     //Transaksjoner skal ha inn parameterene kontonr, fra og til dato, vet ikke hvordan dette skal testes
     public void hentTransaksjoner_OK() {
 
-      /*  // arrange
+
+        Transaksjon tr1 = new Transaksjon(2, "123456789101", 23.5,
+                "2012-03-11", "send", "1", "23456789101");
+        Transaksjon tr2 = new Transaksjon(3, "123456789101", 23.5,
+                "2021-04-11", "send", "1", "23456789101");
+
+        List<Transaksjon> transaksjons = new ArrayList<>();
+
+        transaksjons.add(tr1);
+        transaksjons.add(tr2);
+
+        Konto konto1 = new Konto("115111133557", "02020211533",
+                800, "Lønnskonto", "NOK", transaksjons);
+
+        //konto1.setTransaksjoner(transaksjons);
+
         when(sjekk.loggetInn()).thenReturn("115111133557");
+        when(repository.hentTransaksjoner(konto1.getKontonummer(), "2011-01-01", "2013-01-01")).thenReturn(konto1);
 
-        List<Transaksjon> transaksjoner = new ArrayList<>();
-        Transaksjon transaksjonen = new Transaksjon(2, "123456789101", 23.5,
-                "2012-03-11", "send", "1", "23456789101");
-        transaksjoner.add(transaksjonen);
+        List<Transaksjon> resultat = konto1.getTransaksjoner();
 
+        assertEquals(transaksjons, resultat);
 
-
-        // when(repository.hentKonti(transaksjonen.getKontonummer())).thenReturn()
-
-        when(repository.hentTransaksjoner("23456789101", "2012-03-11", "2013-03-11")).thenReturn();
-
-        // act
-
-
-        // assert*/
-
-
-        List<Transaksjon> transaksjoner = new ArrayList<>();
-        Transaksjon transaksjon1 = new Transaksjon(2, "123456789101", 23.5,
-                "2012-03-11", "send", "1", "23456789101");
-
-        transaksjoner.add(transaksjon1);
-
-        Konto konto = new Konto("05068924604", "23456789101",
-                13495.41, "Brukskonto", "NOK", transaksjoner);
-
-        when(sjekk.loggetInn()).thenReturn(konto.getPersonnummer());
-
-        when(repository.hentTransaksjoner(konto.getPersonnummer(), transaksjon1.getDato(), transaksjon1.getDato())).thenReturn(konto);
-
-        // List<Konto>
-        List<Transaksjon> resultat = (List<Transaksjon>) bankController.hentTransaksjoner("23456789101", "2012-03-11", "2012-04-11");
-
-
-        assertEquals(transaksjoner, resultat);
     }
 
     @Test
