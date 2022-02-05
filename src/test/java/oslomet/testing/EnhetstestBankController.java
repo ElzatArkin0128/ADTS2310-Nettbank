@@ -145,7 +145,6 @@ public class EnhetstestBankController {
     //Transaksjoner skal ha inn parameterene kontonr, fra og til dato, vet ikke hvordan dette skal testes
     public void hentTransaksjoner_OK() {
 
-
         Transaksjon tr1 = new Transaksjon(2, "123456789101", 23.5,
                 "2012-03-11", "send", "1", "23456789101");
         Transaksjon tr2 = new Transaksjon(3, "123456789101", 23.5,
@@ -171,7 +170,6 @@ public class EnhetstestBankController {
     }
 
     @Test
-
     public void hentBetalinger_OK() {
 
         // arrange
