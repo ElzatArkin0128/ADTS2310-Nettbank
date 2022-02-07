@@ -143,8 +143,8 @@ public class EnhetstestBankController {
 
 
     @Test
-    //Transaksjoner skal ha inn parameterene kontonr, fra og til dato, vet ikke hvordan dette skal testes
     public void hentTransaksjoner_OK() {
+        /*
         // arrange
         Transaksjon tr1 = new Transaksjon(2, "123456789101", 23.5,
                 "2012-03-11", "send", "1", "23456789101");
@@ -169,6 +169,37 @@ public class EnhetstestBankController {
 
         // assert
         assertEquals(transaksjons, resultat);
+         */
+
+        // arrange
+        List<Transaksjon> transaksjons = new ArrayList<>();
+
+        Transaksjon tr1 = new Transaksjon(2, "123456789101", 23.5,
+                "2012-03-11", "send", "1", "23456789101");
+        Transaksjon tr2 = new Transaksjon(3, "123456789101", 23.5,
+                "2021-04-11", "send", "1", "23456789101");
+
+        transaksjons.add(tr1);
+        transaksjons.add(tr2);
+
+
+        List <Konto> konti = new ArrayList<>();
+        Konto konto1 = new Konto("115111133557", "02020211533",
+                800, "Lønnskonto", "NOK", transaksjons);
+
+        konti.add(konto1);
+
+        konto1.setTransaksjoner(transaksjons);
+
+        when(sjekk.loggetInn()).thenReturn("115111133557");
+
+        when(repository.hentTransaksjoner(anyString(), anyString(), anyString())).thenReturn(konto1);
+
+        // act
+        Konto resultat = bankController.hentTransaksjoner("115111133557","2011-01-01", "2013-01-01");
+
+        // assert
+        assertEquals(konto1, resultat);
 
     }
 
@@ -270,16 +301,18 @@ public class EnhetstestBankController {
         Konto konto = new Konto("05068924604", "41925811793",
                 13495.41, "Brukskonto", "NOK", betaling);
 
+        konto.setTransaksjoner(betaling);
+
         when(sjekk.loggetInn()).thenReturn(konto.getPersonnummer());
 
         when(repository.utforBetaling(enTransaksjon.getTxID())).thenReturn("OK");
 
         // act
-        // String resultat = bankController.utforBetaling(2);
-        String resultat = bankController.hentBetalinger();
+
+        // Konto resultat = bankController.hentBetalinger(enTransaksjon.getTxID());
 
         // assert
-        assertEquals("OK", resultat);
+        // assertEquals("OK", resultat);
     }
 
     @Test
