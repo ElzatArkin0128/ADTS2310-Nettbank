@@ -204,6 +204,7 @@ public class EnhetstestBankController {
     }
 
     @Test
+    // ikke fullført
     public void hentTransaksjoner_ikkeOK() {
 
         when(sjekk.loggetInn()).thenReturn(null);
@@ -338,7 +339,7 @@ public class EnhetstestBankController {
     }
 
 
-    // ikke fullført
+    // må testes
     @Test
     public void hentKundeInfo_OK(){
 
@@ -346,43 +347,64 @@ public class EnhetstestBankController {
         Kunde kunde = new Kunde("01010110523", "Lene", "Jensen",
                 "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
 
-        // act
         when(sjekk.loggetInn()).thenReturn(kunde.getPersonnummer());
 
         when(repository.hentKundeInfo(anyString())).thenReturn(kunde);
 
-        // assert
+        // act
         Kunde resultat = bankController.hentKundeInfo();
+
+        // assert
+        assertEquals(kunde, resultat);
     }
 
-    // ikke fullført
+    // må testes
     @Test
     public void hentKundeInfo_ikkeOK(){
         // arrange
 
+        when(sjekk.loggetInn()).thenReturn(null);
+
         // act
+        Kunde resultat = bankController.hentKundeInfo();
 
         // assert
+        assertNull(resultat);
     }
 
-    // ikke fullført
+    // må testes
     @Test
     public void  endre_OK() {
         // arrange
+        Kunde kunde = new Kunde("01010110523", "Lene", "Jensen",
+                "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+
+        when(sjekk.loggetInn()).thenReturn(kunde.getPersonnummer());
+
+        when(repository.endreKundeInfo(any(Kunde.class))).thenReturn(kunde.getPersonnummer());
 
         // act
+        String resultat = bankController.endre(kunde);
 
         // assert
+        assertEquals(kunde, resultat);
     }
 
-    // ikke fullført
+    // må testes
     @Test
     public void  endre_ikkeOK() {
         // arrange
+        Kunde kunde = new Kunde("01010110523", "Lene", "Jensen",
+                "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+
+
+        when(sjekk.loggetInn()).thenReturn(null);
 
         // act
+        String resultat = bankController.endre(kunde);
 
         // assert
+        assertNull("Feil", resultat);
     }
 
 }
