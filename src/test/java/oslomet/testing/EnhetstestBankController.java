@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import oslomet.testing.API.AdminKontoController;
+import oslomet.testing.API.AdminKundeController;
 import oslomet.testing.API.BankController;
 import oslomet.testing.DAL.AdminRepository;
 import oslomet.testing.DAL.BankRepository;
@@ -29,12 +30,12 @@ public class EnhetstestBankController {
     @InjectMocks
     // denne skal testes
     private BankController bankController;
-    private AdminKontoController kontoController;
+    private AdminKontoController kontoController; // ikke i bruk
 
     @Mock
     // denne skal Mock'es
     private BankRepository repository;
-    private AdminRepository repo2;
+    private AdminRepository repo2; // ikke i bruk
 
     @Mock
     // denne skal Mock'es
@@ -140,7 +141,6 @@ public class EnhetstestBankController {
         // assert
         assertNull(resultat);
     }
-
 
     @Test
     public void hentTransaksjoner_OK() {
@@ -290,7 +290,7 @@ public class EnhetstestBankController {
     }
 
     @Test
-    // Feiler test
+    // Feil i kode
     public void utforBetaling_OK() {
         // arrange
         List<Transaksjon> betaling = new ArrayList<>();
@@ -308,16 +308,81 @@ public class EnhetstestBankController {
         when(repository.utforBetaling(enTransaksjon.getTxID())).thenReturn("OK");
 
         // act
-
-        // Konto resultat = bankController.hentBetalinger(enTransaksjon.getTxID());
+        String resultat = bankController.hentBetalinger(konto.getPersonnummer());
 
         // assert
-        // assertEquals("OK", resultat);
+        assertEquals("OK", resultat);
     }
 
     @Test
+    // Feil i kode
     public void utforBetaling_ikkeOK() {
 
+        // arrange
+        List<Transaksjon> betaling = new ArrayList<>();
+        Transaksjon enBetaling = new Transaksjon(2, "20102012345", 400.4, "2015-03-20", "Skagen", "1", "105010123456");
+
+
+        Konto konto = new Konto("05068924604", "41925811793",
+                13495.41, "Brukskonto", "NOK", betaling);
+
+        when(sjekk.loggetInn()).thenReturn(null);
+
+        // act
+        String resultat = bankController.utforBetaling(enBetaling);
+
+        // assert
+        assertNull((resultat));
+
+
+    }
+
+
+    // ikke fullført
+    @Test
+    public void hentKundeInfo_OK(){
+
+        // arrange
+        Kunde kunde = new Kunde("01010110523", "Lene", "Jensen",
+                "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
+
+        // act
+        when(sjekk.loggetInn()).thenReturn(kunde.getPersonnummer());
+
+        when(repository.hentKundeInfo(anyString())).thenReturn(kunde);
+
+        // assert
+        Kunde resultat = bankController.hentKundeInfo();
+    }
+
+    // ikke fullført
+    @Test
+    public void hentKundeInfo_ikkeOK(){
+        // arrange
+
+        // act
+
+        // assert
+    }
+
+    // ikke fullført
+    @Test
+    public void  endre_OK() {
+        // arrange
+
+        // act
+
+        // assert
+    }
+
+    // ikke fullført
+    @Test
+    public void  endre_ikkeOK() {
+        // arrange
+
+        // act
+
+        // assert
     }
 
 }
