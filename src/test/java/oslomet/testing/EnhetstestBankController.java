@@ -6,7 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import oslomet.testing.API.AdminKontoController;
-import oslomet.testing.API.AdminKundeController;
 import oslomet.testing.API.BankController;
 import oslomet.testing.DAL.AdminRepository;
 import oslomet.testing.DAL.BankRepository;
@@ -30,12 +29,12 @@ public class EnhetstestBankController {
     @InjectMocks
     // denne skal testes
     private BankController bankController;
-    private AdminKontoController kontoController; // ikke i bruk
+    private AdminKontoController kontoController;
 
     @Mock
     // denne skal Mock'es
     private BankRepository repository;
-    private AdminRepository repo2; // ikke i bruk
+    private AdminRepository repo2;
 
     @Mock
     // denne skal Mock'es
@@ -204,7 +203,6 @@ public class EnhetstestBankController {
     }
 
     @Test
-    // ikke fullført
     public void hentTransaksjoner_ikkeOK() {
 
         when(sjekk.loggetInn()).thenReturn(null);
@@ -291,28 +289,31 @@ public class EnhetstestBankController {
     }
 
     @Test
-    // Feil i kode
+    // Feiler test
     public void utforBetaling_OK() {
         // arrange
-        List<Transaksjon> betaling = new ArrayList<>();
-        Transaksjon enTransaksjon = new Transaksjon(2, "20102012345", 400.4, "2015-03-20", "Skagen", "1", "105010123456");
+        List<Transaksjon> betalinger = new ArrayList<>();
+        Transaksjon enTransaksjon = new Transaksjon(2, "20102012345",
+                400.4, "2015-03-20", "Skagen", "1", "105010123456");
 
-        betaling.add(enTransaksjon);
+        betalinger.add(enTransaksjon);
 
         Konto konto = new Konto("05068924604", "41925811793",
-                13495.41, "Brukskonto", "NOK", betaling);
+                13495.41, "Brukskonto", "NOK", betalinger);
 
-        konto.setTransaksjoner(betaling);
+        konto.setTransaksjoner(betalinger);
 
         when(sjekk.loggetInn()).thenReturn(konto.getPersonnummer());
 
         when(repository.utforBetaling(enTransaksjon.getTxID())).thenReturn("OK");
+        when(repository.hentBetalinger(anyString())).thenReturn(betalinger);
 
         // act
-        String resultat = bankController.hentBetalinger(konto.getPersonnummer());
+
+        List<Transaksjon> resultat = bankController.utforBetaling(enTransaksjon.getTxID());
 
         // assert
-        assertEquals("OK", resultat);
+        assertEquals(betalinger, resultat);
     }
 
     @Test
