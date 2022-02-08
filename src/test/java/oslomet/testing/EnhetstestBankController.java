@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.ignoreStubs;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -29,12 +30,10 @@ public class EnhetstestBankController {
     @InjectMocks
     // denne skal testes
     private BankController bankController;
-    private AdminKontoController kontoController;
 
     @Mock
     // denne skal Mock'es
     private BankRepository repository;
-    private AdminRepository repo2;
 
     @Mock
     // denne skal Mock'es
@@ -143,32 +142,6 @@ public class EnhetstestBankController {
 
     @Test
     public void hentTransaksjoner_OK() {
-        /*
-        // arrange
-        Transaksjon tr1 = new Transaksjon(2, "123456789101", 23.5,
-                "2012-03-11", "send", "1", "23456789101");
-        Transaksjon tr2 = new Transaksjon(3, "123456789101", 23.5,
-                "2021-04-11", "send", "1", "23456789101");
-
-        List<Transaksjon> transaksjons = new ArrayList<>();
-
-        transaksjons.add(tr1);
-        transaksjons.add(tr2);
-
-        Konto konto1 = new Konto("115111133557", "02020211533",
-                800, "Lønnskonto", "NOK", transaksjons);
-
-        //konto1.setTransaksjoner(transaksjons);
-
-        when(sjekk.loggetInn()).thenReturn("115111133557");
-        when(repository.hentTransaksjoner(konto1.getKontonummer(), "2011-01-01", "2013-01-01")).thenReturn(konto1);
-
-        // act
-        List<Transaksjon> resultat = konto1.getTransaksjoner();
-
-        // assert
-        assertEquals(transaksjons, resultat);
-         */
 
         // arrange
         List<Transaksjon> transaksjons = new ArrayList<>();
@@ -205,10 +178,15 @@ public class EnhetstestBankController {
     @Test
     public void hentTransaksjoner_ikkeOK() {
 
+        Konto konto1 = new Konto("115111133557", "02020211533",
+                800, "Lønnskonto", "NOK", null);
+
         when(sjekk.loggetInn()).thenReturn(null);
 
         // act
-        //List<Transaksjon> resultat = bankController.hentTransaksjoner(null,null, null);
+        Konto resultat = bankController.hentTransaksjoner(null,null, null);
+
+        assertNull(resultat);
 
     }
 
@@ -331,12 +309,10 @@ public class EnhetstestBankController {
         when(sjekk.loggetInn()).thenReturn(null);
 
         // act
-        String resultat = bankController.utforBetaling(enBetaling);
+        List<Transaksjon> resultat = bankController.utforBetaling(enBetaling.getTxID());
 
         // assert
         assertNull((resultat));
-
-
     }
 
 
@@ -388,7 +364,7 @@ public class EnhetstestBankController {
         String resultat = bankController.endre(kunde);
 
         // assert
-        assertEquals(kunde, resultat);
+        assertEquals(kunde.getPersonnummer(), resultat);
     }
 
     // må testes
@@ -405,7 +381,7 @@ public class EnhetstestBankController {
         String resultat = bankController.endre(kunde);
 
         // assert
-        assertNull("Feil", resultat);
+        assertNull(resultat);
     }
 
 }
