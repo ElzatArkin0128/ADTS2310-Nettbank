@@ -98,7 +98,7 @@ public class BankController {
     }
 
     @PostMapping("/endreKundeInfo")
-    public String endre(Kunde innKunde) {
+    public String endre(@RequestBody Kunde innKunde) {
         String personnummer = sjekk.loggetInn();
         if (personnummer!=null) {
                 innKunde.setPersonnummer(personnummer);
