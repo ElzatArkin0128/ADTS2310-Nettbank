@@ -24,8 +24,6 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doAnswer;
 
 
-
-
 @RunWith(MockitoJUnitRunner.class)
 public class EnhetstestSikkerhet {
 
