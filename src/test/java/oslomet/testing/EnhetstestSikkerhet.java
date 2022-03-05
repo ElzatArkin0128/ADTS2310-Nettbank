@@ -40,23 +40,30 @@ public class EnhetstestSikkerhet {
     @Test
     public void test_sjekkLoggInn(){
 
+        // arrange
         Kunde kunde = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
 
         Mockito.when(bankrep.sjekkLoggInn(kunde.getPersonnummer(), kunde.getPassord())).thenReturn("OK");
 
+        // act
         String resultat = sikkerhetsController.sjekkLoggInn("01010110523", "HeiHei");
 
+        //assert
         assertEquals("OK", resultat);
     }
 
     @Test
     public void test_sjekkLoggInnFeil(){
+
+        // arrange
         Kunde kunde = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
 
         Mockito.when(bankrep.sjekkLoggInn(kunde.getPersonnummer(), kunde.getPassord())).thenReturn("Feil i personnummer eller passord");
 
+        // act
         String resultat = sikkerhetsController.sjekkLoggInn("01010110523", "HeiHei");
 
+        // assert
         assertEquals("Feil i personnummer eller passord", resultat);
     }
 
@@ -64,6 +71,8 @@ public class EnhetstestSikkerhet {
     // Tester for loggetInn : 2 tester (OK & feil)
     @Test
     public void test_loggetInn(){
+
+        // arrange
         Map<String,Object> attributes = new HashMap<String,Object>();
 
         doAnswer(new Answer<Object>(){
@@ -86,18 +95,23 @@ public class EnhetstestSikkerhet {
 
         session.setAttribute("Innlogget", "01010110523");
 
+        // act
         String resultat = sikkerhetsController.loggetInn();
 
+        // assert
         assertEquals("01010110523", resultat);
     }
 
     @Test
     public void test_loggetInnFeil(){
 
+        // arrange
         session.setAttribute("Innlogget", null);
 
+        // act
         String resultat = sikkerhetsController.loggetInn();
 
+        // assert
         assertNull(resultat);
 
     }
@@ -106,30 +120,42 @@ public class EnhetstestSikkerhet {
     // Test for loggUt : 1 test
     @Test
     public void test_loggUt(){
+
+        // arrange
         session.setAttribute("Innlogget", null);
 
+        // act
         String resultat = sikkerhetsController.loggetInn();
 
+        // assert
         assertNull(resultat);
     }
 
     // Tester for loggInnAdmin : 2 tester (OK & feil)
     @Test
     public void test_loggInnAdmin(){
+
+        // arrange
         session.setAttribute("Innlogget", "Admin");
 
+        // act
         String resultat = sikkerhetsController.loggInnAdmin("Admin", "Admin");
 
+        // assert
         assertEquals("Logget inn", resultat);
 
     }
 
     @Test
     public void test_loggInnAdminFeil(){
+
+        // arrange
         session.setAttribute("Innlogget", null);
 
+        // act
         String resultat = sikkerhetsController.loggInnAdmin(anyString(), anyString());
 
+        // assert
         assertEquals("Ikke logget inn", resultat);
     }
 }
