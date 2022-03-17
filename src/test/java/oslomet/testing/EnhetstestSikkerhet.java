@@ -55,6 +55,8 @@ public class EnhetstestSikkerhet {
     @Test
     public void test_sjekkLoggInnFeil(){
 
+        //Todo: putte inn session her????
+
         // arrange
         Kunde kunde = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
 
@@ -129,6 +131,7 @@ public class EnhetstestSikkerhet {
 
         // assert
         assertNull(resultat);
+
     }
 
     // Tester for loggInnAdmin : 2 tester (OK & feil)

@@ -255,7 +255,6 @@ public class EnhetstestBankController {
         // arrange
         Transaksjon enTransaksjon = new Transaksjon(2, "20102012345", 400.4, "2015-03-20", "Skagen", "1", "105010123456");
 
-
         when(sjekk.loggetInn()).thenReturn(null);
 
         // act
