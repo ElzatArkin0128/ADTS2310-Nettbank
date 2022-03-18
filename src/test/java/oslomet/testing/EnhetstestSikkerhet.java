@@ -123,7 +123,7 @@ public class EnhetstestSikkerhet {
     @Test
     public void test_loggUt(){
 
-        // arrange
+   // arrange
         session.setAttribute("Innlogget", null);
 
         // act
