@@ -5,6 +5,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import oslomet.testing.API.AdminKontoController;
 import oslomet.testing.API.BankController;
 import oslomet.testing.DAL.AdminRepository;
@@ -14,6 +17,7 @@ import oslomet.testing.Models.Kunde;
 import oslomet.testing.Models.Transaksjon;
 import oslomet.testing.Sikkerhet.Sikkerhet;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +42,19 @@ public class EnhetstestBankController {
     @Mock
     // denne skal Mock'es
     private Sikkerhet sjekk;
+
+
+    @Test
+    public void test_initDB(){
+
+        when(repository.initDB(any())).thenReturn("OK");
+
+        String resultat = bankController.initDB();
+
+        assertEquals("OK", resultat);
+
+
+    }
 
     @Test
     public void hentKundeInfo_loggetInn() {
