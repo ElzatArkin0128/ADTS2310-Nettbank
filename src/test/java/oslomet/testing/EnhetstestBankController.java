@@ -52,8 +52,6 @@ public class EnhetstestBankController {
         String resultat = bankController.initDB();
 
         assertEquals("OK", resultat);
-
-
     }
 
     @Test
@@ -141,7 +139,6 @@ public class EnhetstestBankController {
 
         // assert
         assertEquals(saldi, resultat);
-
     }
 
     @Test
@@ -189,7 +186,6 @@ public class EnhetstestBankController {
 
         // assert
         assertEquals(konto1, resultat);
-
     }
 
     @Test
@@ -204,7 +200,6 @@ public class EnhetstestBankController {
         Konto resultat = bankController.hentTransaksjoner(null,null, null);
 
         assertNull(resultat);
-
     }
 
     @Test
@@ -240,15 +235,14 @@ public class EnhetstestBankController {
 
         // assert
         assertNull(resultat);
-
-
     }
 
     @Test
     public void registrerbetaling_OK() {
         // arrange
         List<Transaksjon> konto1transaksjoner = new ArrayList<>();
-        Transaksjon enTransaksjon = new Transaksjon(2, "20102012345", 400.4, "2015-03-20", "Skagen", "1", "105010123456");
+        Transaksjon enTransaksjon = new Transaksjon(2, "20102012345", 400.4, "2015-03-20", "Skagen", "1",
+                "105010123456");
 
         konto1transaksjoner.add(enTransaksjon);
 
@@ -263,14 +257,14 @@ public class EnhetstestBankController {
 
         // assert
         assertEquals("OK", resultat);
-
     }
 
     @Test
     public void registrerbetaling_ikkeOK() {
 
         // arrange
-        Transaksjon enTransaksjon = new Transaksjon(2, "20102012345", 400.4, "2015-03-20", "Skagen", "1", "105010123456");
+        Transaksjon enTransaksjon = new Transaksjon(2, "20102012345", 400.4, "2015-03-20", "Skagen", "1",
+                "105010123456");
 
         when(sjekk.loggetInn()).thenReturn(null);
 
@@ -279,11 +273,9 @@ public class EnhetstestBankController {
 
         // assert
         assertNull(resultat);
-
     }
 
     @Test
-    // Feiler test
     public void utforBetaling_OK() {
         // arrange
         List<Transaksjon> betalinger = new ArrayList<>();
@@ -311,13 +303,12 @@ public class EnhetstestBankController {
     }
 
     @Test
-    // Feil i kode
     public void utforBetaling_ikkeOK() {
 
         // arrange
         List<Transaksjon> betaling = new ArrayList<>();
-        Transaksjon enBetaling = new Transaksjon(2, "20102012345", 400.4, "2015-03-20", "Skagen", "1", "105010123456");
-
+        Transaksjon enBetaling = new Transaksjon(2, "20102012345", 400.4, "2015-03-20", "Skagen",
+                "1", "105010123456");
 
         Konto konto = new Konto("05068924604", "41925811793",
                 13495.41, "Brukskonto", "NOK", betaling);
@@ -332,7 +323,6 @@ public class EnhetstestBankController {
     }
 
 
-    // må testes
     @Test
     public void hentKundeInfo_OK(){
 
@@ -389,7 +379,6 @@ public class EnhetstestBankController {
         // arrange
         Kunde kunde = new Kunde("01010110523", "Lene", "Jensen",
                 "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
-
 
         when(sjekk.loggetInn()).thenReturn(null);
 

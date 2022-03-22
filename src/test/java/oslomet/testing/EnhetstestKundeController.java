@@ -69,7 +69,6 @@ public class EnhetstestKundeController {
 
         // assert
         assertNull(resultat);
-
     }
 
     @Test
@@ -90,7 +89,6 @@ public class EnhetstestKundeController {
 
         // assert
         assertEquals("OK", resultat);
-
     }
 
     @Test
@@ -108,7 +106,6 @@ public class EnhetstestKundeController {
 
         // assert
         assertEquals("Ikke logget inn", resultat);
-
     }
 
     @Test
@@ -133,7 +130,6 @@ public class EnhetstestKundeController {
 
     @Test
     public void test_endreKundeFeil() {
-
         // arrange
         Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
                 "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
@@ -150,7 +146,6 @@ public class EnhetstestKundeController {
 
     @Test
     public void test_slettKundeOK() {
-
         // arrange
         Kunde enKunde = new Kunde("01010110523", "Lene", "Jensen",
                 "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
@@ -184,5 +179,4 @@ public class EnhetstestKundeController {
         // assert
         assertEquals("Ikke logget inn", resultat);
     }
-
 }

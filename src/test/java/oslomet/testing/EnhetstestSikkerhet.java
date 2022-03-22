@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.when;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -43,7 +44,7 @@ public class EnhetstestSikkerhet {
         // arrange
         Kunde kunde = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
 
-        Mockito.when(bankrep.sjekkLoggInn(kunde.getPersonnummer(), kunde.getPassord())).thenReturn("OK");
+        when(bankrep.sjekkLoggInn(kunde.getPersonnummer(), kunde.getPassord())).thenReturn("OK");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("01010110523", "HeiHei");
@@ -55,12 +56,10 @@ public class EnhetstestSikkerhet {
     @Test
     public void test_sjekkLoggInnFeil(){
 
-        //Todo: putte inn session her????
-
         // arrange
         Kunde kunde = new Kunde("01010110523", "Lene", "Jensen", "Askerveien 22", "3270", "Oslo", "22224444", "HeiHei");
 
-        Mockito.when(bankrep.sjekkLoggInn(kunde.getPersonnummer(), kunde.getPassord())).thenReturn("Feil i personnummer eller passord");
+        when(bankrep.sjekkLoggInn(kunde.getPersonnummer(), kunde.getPassord())).thenReturn("Feil i personnummer eller passord");
 
         // act
         String resultat = sikkerhetsController.sjekkLoggInn("01010110523", "HeiHei");
@@ -68,7 +67,6 @@ public class EnhetstestSikkerhet {
         // assert
         assertEquals("Feil i personnummer eller passord", resultat);
     }
-
 
     // Tester for loggetInn : 2 tester (OK & feil)
     @Test
@@ -147,7 +145,6 @@ public class EnhetstestSikkerhet {
 
         // assert
         assertEquals("Logget inn", resultat);
-
     }
 
     @Test
